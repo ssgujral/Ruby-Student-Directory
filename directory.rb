@@ -1,5 +1,9 @@
 
-#stores all student names and their months of enrollment (cohorts) as a hash table
+
+@students = [] #empty student array stored as instance variable for passing to multiple methods
+
+
+#also storing an example list of student names and their months of enrollment (cohorts) as a hash table
 
 student_list = [
 
@@ -11,32 +15,50 @@ student_list = [
 
 ]
 
-#interactive_menu
+#interactive_menu method
 
 def interactive_menu
-  students = []
+  
   loop do
 
-    puts "1. Add students to the directory"
-    puts "2. List students in the directory"
-    puts "9. Exit"
+    print_menu_text
 
     selection = gets.chomp
     
     case selection
     when "1"
-      students = input_students
+      @students = input_students
     when "2"
-      puts print_student_header
-      puts print(students)
-      puts print_enrollment_count(students)
+      print_option_two
     when "9"
       exit
     else
-      puts "I do not understand that command. Please try again."
-      puts ""
+      print_menu_error_message
     end
   end
+end
+
+#method to print the initial menu text
+def print_menu_text
+  puts "Please select from one of the following options! Enter the number only."
+  puts "1. Add students to the directory"
+  puts "2. List students in the directory"
+  puts "9. Exit"
+end
+
+#method to print the menu output under option 2
+
+def print_option_two
+  puts print_student_header
+  puts print_list_of_students(@students)
+  puts print_enrollment_count(@students)
+end
+
+def print_menu_error_message
+  puts ""
+  puts "That is not a valid command."
+  puts "Please enter a number (no punctuation!) and try again" 
+  puts ""
 end
 
 
@@ -103,7 +125,7 @@ end
 
 #methods prints out the names of all enrolled student from array using a do loop
 
-def print(list)
+def print_list_of_students(list)
 
   list.each_with_index do |student, index|
 
