@@ -1,6 +1,5 @@
 
-
-#initializes hash table with a list of current student names and their months of enrollment (cohorts)
+#initializes a hash table with a starting student directory (names and months of enrollment (cohorts))
 @students = [
   {name: "Mike Myers", cohort: :December},
   {name: "Kim Jon Il", cohort: :December},
@@ -17,7 +16,17 @@ def interactive_menu
   end
 end
 
-#method for parsing user input from menu and selecting the right option
+#method to print the initial menu text
+def print_menu_text
+  puts "Please select from one of the following options! Enter the number only."
+  puts "1. Add students to the directory"
+  puts "2. List students in the directory"
+  puts "3. Save directory to studentlist.csv (in the application folder)"
+  puts "4. Load directory from studentlist.csv (in the application folder)"
+  puts "9. Exit"
+end
+
+#method parses user input to select menu option
 def process(selection)
   case selection
     when "1"
@@ -26,6 +35,8 @@ def process(selection)
       print_student_list_and_enrollment_count
     when "3"
       save_and_output_students_to_csv
+    when "4"
+      load_directory_from_csv
     when "9"
       exit
     else
@@ -33,47 +44,7 @@ def process(selection)
   end
 end
 
-#method for saving student list to a csv file
-def save_and_output_students_to_csv
-  file = File.open("studentlist.csv", "w")
-  @students.each do |student_entry|
-    student_data_array = [student_entry[:name], student_entry[:cohort]]
-    csv_text = student_data_array.join(",")
-    file.puts csv_text
-  end
-    file.close
-    puts ""
-    puts "Student list successfully exported to studentlist.csv!"
-    puts ""
-end
-
-#method to print the initial menu text
-def print_menu_text
-  puts "Please select from one of the following options! Enter the number only."
-  puts "1. Add students to the directory"
-  puts "2. List students in the directory"
-  puts "3. Save all current students to CSV file"
-  puts "9. Exit"
-end
-
-#method to print the menu output under option 2
-def print_student_list_and_enrollment_count
-  puts print_student_header
-  puts print_list_of_students
-  puts print_enrollment_count
-end
-
-def print_menu_error_message
-  puts ""
-  puts "That is not a valid command."
-  puts "Please enter a number (no punctuation!) and try again" 
-  puts ""
-end
-
-
-
-#lets the user input names of enrolled students and their months of enrollment (cohorts)
-
+#method lets the user input names of enrolled students and their months of enrollment (cohorts)
 def input_students
   puts "Enter the names of all newly enrolled students."
   puts ""
@@ -106,6 +77,13 @@ def input_students
   end
 end
 
+#method to print the menu output under option 2
+def print_student_list_and_enrollment_count
+  puts print_student_header
+  puts print_list_of_students
+  puts print_enrollment_count
+end
+
 #method prints student directory header
 def print_student_header
   puts "Students enrolled at Evil Academy"
@@ -113,8 +91,7 @@ def print_student_header
   puts ""
 end
 
-#methods prints out the names of all enrolled student from array using a do loop
-
+#method prints out the names of all enrolled student from array using a do loop
 def print_list_of_students
   @students.each_with_index do |student, index|
     puts "#{index+1}. #{student[:name]}"
@@ -124,10 +101,45 @@ def print_list_of_students
   puts ""
 end
 
-#methods prints the total number of students enrolled using the count method on the array
-
+#method prints total number of students enrolled using the count method on the array
 def print_enrollment_count
   puts "In total, there are #{@students.count} evil students."
+end
+
+#method exports current student list to csv
+def save_and_output_students_to_csv
+  file = File.open("studentlist.csv", "w")
+  
+  @students.each do |student_entry|
+    student_data_array = [student_entry[:name], student_entry[:cohort]]
+    csv_text = student_data_array.join(",")
+    file.puts csv_text
+  end
+    file.close
+    puts ""
+    puts "Student directory successfully exported to studentlist.csv!"
+    puts ""
+end
+
+#method to import student directory from csv
+def load_directory_from_csv
+  file = File.open("studentlist.csv", "r")
+  file.readlines.each do |line|
+    name, cohort = line.chomp.split(',')
+      @students << {name: name, cohort: cohort.to_sym}
+  end
+  file.close
+  puts ""
+    puts "Student directory successfully imported from studentlist.csv!"
+    puts ""
+end
+
+#method to print error message when user enters invalid main menu command
+def print_menu_error_message
+  puts ""
+  puts "That is not a valid command."
+  puts "Please enter a number (with no punctuation!) and try again" 
+  puts ""
 end
 
 interactive_menu
