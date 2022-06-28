@@ -11,12 +11,42 @@ student_list = [
 
 ]
 
+#method gets names of enrolled students from the user
+
+def input_students
+  puts "Enter the names of all enrolled students for the March cohort."
+  puts "To finish, please press return twice (leaving a blank line)."
+  puts ""
+
+  #create a blank array
+  students = []
+  #get the first student name
+  name = gets.chomp
+  
+  while !name.empty? do
+ 
+    students << {name: name, cohort: :March}
+    puts "There are a now a total of #{students.count} enrolled students."
+    puts ""
+    name = gets.chomp
+  end
+
+  #return the updated array of new students
+  students
+end
+
+
+
+
 #method prints student directory header
 def print_student_header
   puts "Students enrolled at Evil Academy"
   puts "**********"
   puts ""
 end
+
+
+
 
 #methods prints out the names of all enrolled student from array using a do loop
 
@@ -40,6 +70,9 @@ def print_enrollment_count (list)
   puts "In total, there are #{list.count} evil students."
 end
 
+students = input_students
+
 puts print_student_header
-puts print (student_list)
-puts print_enrollment_count (student_list)
+puts print(students)
+
+puts print_enrollment_count(students)
