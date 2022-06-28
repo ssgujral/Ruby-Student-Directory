@@ -11,18 +11,33 @@ student_list = [
 
 ]
 
-#then, print them out using a do loop on the array
-
-puts "Students enrolled at Evil Academy"
-puts "**********"
-puts ""
-
-student_list.each do |student|
-  puts student
+#method prints student directory header
+def print_student_header
+  puts "Students enrolled at Evil Academy"
+  puts "**********"
+  puts ""
 end
 
-puts ""
+#methods prints out the names of all enrolled student from array using a do loop
 
-#finally, print the total number of students using the count method on the array
+def print(list)
 
-puts "In total, there are #{student_list.count} evil students."
+  list.each do |student|
+    puts student
+  end
+  
+  puts ""
+
+end
+
+
+
+#methods prints the total number of students enrolled using the count method on the array
+
+def print_enrollment_count (list)
+  puts "In total, there are #{list.count} evil students."
+end
+
+puts print_student_header
+puts print (student_list)
+puts print_enrollment_count (student_list)
