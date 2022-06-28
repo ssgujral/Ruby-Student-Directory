@@ -8,11 +8,13 @@
   {name: "Joseph (Joe) Vissarionovich Stalin", cohort: :February}
 ] 
 
+
+
 #interactive_menu method
 def interactive_menu
   loop do
     print_menu_text
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -53,10 +55,10 @@ def input_students
   puts "Enter the new student's name:"
 
   #get the first student name
-  name = gets.chomp
+  name = STDIN.gets.chomp
 
   puts "Enter the new student's cohort (month of enrollment):"
-  cohort_month = gets.chomp
+  cohort_month = STDIN.gets.chomp
   
   while !name.empty? do
 
@@ -70,10 +72,10 @@ def input_students
     puts ""
     puts "Press return twice to stop adding new students."
     puts "Otherwise, please enter the next new student's name:"
-    name = gets.chomp
+    name = STDIN.gets.chomp
     puts ""
     puts "Enter the new student's cohort (month of enrollment):"
-    cohort_month = gets.chomp
+    cohort_month = STDIN.gets.chomp
   end
 end
 
@@ -122,8 +124,8 @@ def save_and_output_students_to_csv
 end
 
 #method to import student directory from csv
-def load_directory_from_csv
-  file = File.open("studentlist.csv", "r")
+def load_directory_from_csv(filename="studentlist.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
       @students << {name: name, cohort: cohort.to_sym}
@@ -134,6 +136,18 @@ def load_directory_from_csv
     puts ""
 end
 
+def try_to_load_csv
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exist?(filename)
+    load_directory_from_csv(filename)
+    puts "Loaded #{@students.count} students from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist."
+    exit
+  end
+end
+
 #method to print error message when user enters invalid main menu command
 def print_menu_error_message
   puts ""
@@ -142,6 +156,7 @@ def print_menu_error_message
   puts ""
 end
 
+try_to_load_csv
 interactive_menu
 
 
