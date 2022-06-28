@@ -1,16 +1,28 @@
 
-number_of_students = 5
+#first, store all students as an array
 
-#prints list of students
+student_list = [
+
+  "Mike Myers",
+  "Kim Jon Il",
+  "The Grim Reaper",
+  "Evil Clown from It!",
+  "Joseph (Joe) Vissarionovich Stalin"
+
+]
+
+#then, print them out using a do loop on the array
+
 puts "Students enrolled at Evil Academy"
 puts "**********"
 puts ""
-puts "Mike Myers"
-puts "Kim Jon Il"
-puts "The Grim Reaper"
-puts "Evil Clown from It!"
-puts "Joseph (Joe) Vissarionovich Stalin"
+
+student_list.each do |student|
+  puts student
+end
+
 puts ""
 
-#prints total number of students
-puts "In total, there are #{number_of_students} evil students."
+#finally, print the total number of students using the count method on the array
+
+puts "In total, there are #{student_list.count} evil students."
