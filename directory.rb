@@ -14,26 +14,49 @@ student_list = [
 #method gets names of enrolled students from the user
 
 def input_students
-  puts "Enter the names of all enrolled students for the March cohort."
-  puts "To finish, please press return twice (leaving a blank line)."
+  puts "Enter the names of all newly enrolled students."
   puts ""
+  puts "To finish entering students, hit return twice."
+  puts ""
+  puts "Enter student name:"
 
   #create a blank array
   students = []
   #get the first student name
   name = gets.chomp
+
+  puts "Enter student's cohort (enrollment month:"
+  cohort_month = gets.chomp
   
   while !name.empty? do
- 
-    students << {name: name, cohort: :March}
+
+    if cohort_month.empty?
+      students << {name: student, cohort: :NotSpecified}
+
+    else
+
+      students << {name: name, cohort: cohort_month.to_sym}
+    
+    end
+
     puts "There are a now a total of #{students.count} enrolled students."
     puts ""
+    puts "To finish enterting students, push return twice."
+    puts" Otherwise, please enter the next student's name:"
+    puts ""
     name = gets.chomp
+    puts ""
+    puts "Enter their cohort (enrollment) month:"
+    cohort_month = gets.chomp
   end
+
+  
 
   #return the updated array of new students
   students
+
 end
+
 
 
 
@@ -52,8 +75,9 @@ end
 
 def print(list)
 
-  list.each do |student|
-    puts "#{student[:name]}"
+  list.each_with_index do |student, index|
+
+    puts "#{index+1}. #{student[:name]}"
     puts "(#{student[:cohort]} cohort)"
     puts ""
   end
