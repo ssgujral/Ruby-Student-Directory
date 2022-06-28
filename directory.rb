@@ -3,11 +3,11 @@
 
 student_list = [
 
-  "Mike Myers",
-  "Kim Jon Il",
-  "The Grim Reaper",
-  "Evil Clown from It!",
-  "Joseph (Joe) Vissarionovich Stalin"
+  ["Mike Myers", :December],
+  ["Kim Jon Il", :December],
+  ["The Grim Reaper", :January],
+  ["Evil Clown from It!", :February],
+  ["Joseph (Joe) Vissarionovich Stalin", :February]
 
 ]
 
@@ -23,7 +23,9 @@ end
 def print(list)
 
   list.each do |student|
-    puts student
+    puts "#{student[0]}"
+    puts "(#{student[1]} cohort)"
+    puts ""
   end
   
   puts ""
