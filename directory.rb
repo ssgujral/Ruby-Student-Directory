@@ -1,13 +1,13 @@
 
-#first, store all students as an array
+#first, store all students and cohort a has
 
 student_list = [
 
-  ["Mike Myers", :December],
-  ["Kim Jon Il", :December],
-  ["The Grim Reaper", :January],
-  ["Evil Clown from It!", :February],
-  ["Joseph (Joe) Vissarionovich Stalin", :February]
+  {name: "Mike Myers", cohort: :December},
+  {name: "Kim Jon Il", cohort: :December},
+  {name: "The Grim Reaper", cohort: :January},
+  {name: "Evil Clown from It!", cohort: :February},
+  {name: "Joseph (Joe) Vissarionovich Stalin", cohort: :February}
 
 ]
 
@@ -23,8 +23,8 @@ end
 def print(list)
 
   list.each do |student|
-    puts "#{student[0]}"
-    puts "(#{student[1]} cohort)"
+    puts "#{student[:name]}"
+    puts "(#{student[:cohort]} cohort)"
     puts ""
   end
   
